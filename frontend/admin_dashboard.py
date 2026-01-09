@@ -28,7 +28,7 @@ engine = create_engine(DATABASE_URL)
 # =================================================
 # PASSWORD CONTEXT
 # =================================================
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 
 # =================================================
 # AUTH FUNCTIONS
