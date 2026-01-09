@@ -63,7 +63,7 @@ if not st.session_state.authenticated:
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.image(
-            "frontend/assets/hurricane_logo.png",
+            "frontend/assets/hurricane_logo.webp",
             use_container_width=True
         )
 
