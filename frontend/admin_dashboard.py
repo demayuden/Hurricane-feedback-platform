@@ -16,6 +16,8 @@ st.set_page_config(page_title="Hurricane Admin Dashboard", layout="wide")
 # =================================================
 env_path = Path(__file__).resolve().parent.parent / "backend" / ".env"
 load_dotenv(dotenv_path=env_path)
+logo_path = Path(__file__).parent / "assets" / "hurricane_logo.webp"
+st.image(logo_path, use_container_width=True)
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -62,11 +64,6 @@ if not st.session_state.authenticated:
 
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.image(
-            "frontend/assets/hurricane_logo.webp",
-            use_container_width=True
-        )
-
         st.markdown(
             """
             <h2 style='text-align:center;'>Hurricane Admin Portal</h2>
