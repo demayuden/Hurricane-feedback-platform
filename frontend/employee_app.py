@@ -89,7 +89,7 @@ elif st.session_state.page == "survey":
             }
 
             response = requests.post(
-                "http://127.0.0.1:8000/feedback",
+                "https://hurricane-feedback-platform.onrender.com/feedback",
                 json=payload
             )
 
