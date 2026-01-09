@@ -4,5 +4,4 @@ sqlalchemy
 psycopg2-binary
 python-dotenv
 pydantic
-transformers
-torch
+passlib[bcrypt]
