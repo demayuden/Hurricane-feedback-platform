@@ -20,7 +20,8 @@ def submit_feedback(data: dict, db: Session = Depends(get_db)):
         data.get("q2", ""),
         data.get("q3", ""),
         data.get("q4", ""),
-        data.get("q5", "")
+        data.get("q5", ""),
+        data.get("q6", "")
     ])
 
     sentiment = analyze_sentiment(combined_text)
@@ -31,8 +32,8 @@ def submit_feedback(data: dict, db: Session = Depends(get_db)):
         q3=data.get("q3"),
         q4=data.get("q4"),
         q5=data.get("q5"),
-        sentiment=sentiment,
-        urgency=data.get("urgency", False)
+        q6=data.get("q6"),
+        sentiment=sentiment
     )
 
     db.add(feedback)

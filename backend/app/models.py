@@ -11,6 +11,6 @@ class Feedback(Base):
     q3 = Column(Text)
     q4 = Column(Text)
     q5 = Column(Text)
+    q6 = Column(Text)
     sentiment = Column(Text)
-    urgency = Column(Boolean, default=False)
     created_date = Column(Date, default=date.today)

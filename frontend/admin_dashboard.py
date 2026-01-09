@@ -87,9 +87,8 @@ st.title("📊 WorkPulse – Admin Dashboard")
 
 query = text("""
     SELECT
-        q1, q2, q3, q4, q5,
+        q1, q2, q3, q4, q5, q6,
         sentiment,
-        urgency,
         created_date
     FROM feedback
     ORDER BY created_date DESC
@@ -104,10 +103,9 @@ if df.empty:
 # -------------------------
 # METRICS
 # -------------------------
-col1, col2, col3 = st.columns(3)
+col1, col2= st.columns(2)
 col1.metric("Total Feedback", len(df))
-col2.metric("Urgent Issues", int(df["urgency"].sum()))
-col3.metric("Negative Feedback", int((df["sentiment"] == "NEGATIVE").sum()))
+col2.metric("Negative Feedback", int((df["sentiment"] == "NEGATIVE").sum()))
 
 # -------------------------
 # CHARTS

@@ -28,7 +28,6 @@ if st.session_state.page == "intro":
     )
 
     st.markdown("🙏 *Thank you for being part of our growth.*")
-
     st.markdown("---")
 
     if st.button("👉 Continue to the survey"):
@@ -69,12 +68,15 @@ elif st.session_state.page == "survey":
         "5️⃣ If you were CEO for a day, what is the first major change you would make?"
     )
 
-    urgent = st.checkbox("🚨 This feedback is urgent")
+    q6 = st.text_area(
+        "➕ Anything else you would like to share?",
+        help="Optional – share anything not covered above."
+    )
 
     st.markdown("---")
 
     if st.button("📩 Submit feedback"):
-        if not any([q1, q2, q3, q4, q5]):
+        if not any([q1, q2, q3, q4, q5, q6]):
             st.warning("Please answer at least one question before submitting.")
         else:
             payload = {
@@ -83,7 +85,7 @@ elif st.session_state.page == "survey":
                 "q3": q3,
                 "q4": q4,
                 "q5": q5,
-                "urgency": urgent
+                "q6": q6
             }
 
             response = requests.post(
