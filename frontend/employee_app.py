@@ -120,23 +120,23 @@ elif st.session_state.page == "survey":
     st.markdown("---")
 
     q1 = st.text_area(
-        "1. What is one thing that has gone well for you or your team recently?"
+        "1. What is one thing that has gone well for you or your team recently? (Knowing what works helps us protect those processes)."
     )
 
     q2 = st.text_area(
-        "2. What is the biggest pain point or obstacle that currently makes your job harder than it needs to be?"
+        "2. What is the biggest \"pain point\" or obstacle that currently makes your job harder than it needs to be?"
     )
 
     q3 = st.text_area(
-        "3. What is one thing leadership could do differently to better support your daily success?"
+        "3. What is one thing the leadership team could do differently to better support you and your team’s daily success?"
     )
 
     q4 = st.text_area(
-        "4. What resources, tools, or knowledge do you feel you are currently missing?"
+        "4. What resources, tools, or knowledge do you feel you are currently missing that would help you reach the next level in your role?"
     )
 
     q5 = st.text_area(
-        "5. If you were CEO for a day, what is the first major change you would make?"
+        "5. If you were \"CEO\" for a day, what is the first major change you would make to improve the company's culture or operations?"
     )
 
     q6 = st.text_area(
