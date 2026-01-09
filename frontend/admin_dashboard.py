@@ -6,12 +6,71 @@ from pathlib import Path
 import os
 from passlib.context import CryptContext
 import base64
+def apply_violet_theme():
+    st.markdown(
+        """
+        <style>
+        /* Main app background */
+        .stApp {
+            background-color: #f7f5fb;
+        }
+
+        /* Headings */
+        h1, h2, h3, h4 {
+            color: #4b2e83;
+        }
+
+        /* Buttons */
+        div.stButton > button {
+            background-color: #783EBD;
+            color: white;
+            border-radius: 6px;
+            border: none;
+            padding: 0.5em 1.2em;
+        }
+
+        div.stButton > button:hover {
+            background-color: #4b2375;
+            color: white;
+        }
+
+        /* Text inputs & text areas */
+        textarea, input {
+            border-radius: 6px !important;
+            border: 1px solid #c6b8e2 !important;
+        }
+
+        textarea:focus, input:focus {
+            border-color: #5b2d8b !important;
+            box-shadow: 0 0 0 0.1rem rgba(91, 45, 139, 0.25) !important;
+        }
+
+        /* Success message */
+        .stAlertSuccess {
+            background-color: #e9e3f5;
+            color: #3a1f5d;
+            border-left: 4px solid #5b2d8b;
+        }
+
+        /* Warning message */
+        .stAlertWarning {
+            border-left: 4px solid #9b59b6;
+        }
+
+        /* Caption text */
+        .stCaption {
+            color: #6b5a8a;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # =================================================
 # PAGE CONFIG
 # =================================================
 st.set_page_config(page_title="Hurricane Admin Dashboard", layout="wide")
-
+apply_violet_theme()
 # =================================================
 # LOAD ENV (from backend/.env)
 # =================================================

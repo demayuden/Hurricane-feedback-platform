@@ -1,7 +1,71 @@
 import streamlit as st
 import requests
 
-st.set_page_config(page_title="WorkPulse – Employee Feedback", layout="centered")
+def apply_violet_theme():
+    st.markdown(
+        """
+        <style>
+        /* Main app background */
+        .stApp {
+            background-color: #f7f5fb;
+        }
+
+        /* Headings */
+        h1, h2, h3, h4 {
+            color: #4b2e83;
+        }
+
+        /* Buttons */
+        div.stButton > button {
+            background-color: #783EBD;
+            color: white;
+            border-radius: 6px;
+            border: none;
+            padding: 0.5em 1.2em;
+        }
+
+        div.stButton > button:hover {
+            background-color: #4b2375;
+            color: white;
+        }
+
+        /* Text inputs & text areas */
+        textarea, input {
+            border-radius: 6px !important;
+            border: 1px solid #c6b8e2 !important;
+        }
+
+        textarea:focus, input:focus {
+            border-color: #5b2d8b !important;
+            box-shadow: 0 0 0 0.1rem rgba(91, 45, 139, 0.25) !important;
+        }
+
+        /* Success message */
+        .stAlertSuccess {
+            background-color: #e9e3f5;
+            color: #3a1f5d;
+            border-left: 4px solid #5b2d8b;
+        }
+
+        /* Warning message */
+        .stAlertWarning {
+            border-left: 4px solid #9b59b6;
+        }
+
+        /* Caption text */
+        .stCaption {
+            color: #6b5a8a;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+st.set_page_config(
+    page_title="Employee Feedback Survey",
+    layout="centered"
+)
+apply_violet_theme()
 
 # -----------------------------
 # SESSION STATE INIT
@@ -14,23 +78,27 @@ if "page" not in st.session_state:
 # =============================
 if st.session_state.page == "intro":
 
-    st.title("💬 Your feedback matters")
+    st.title("💬 Your Feedback Matters")
 
     st.markdown(
         """
-        This is a **100% anonymous team survey** to help **HURRICANE** grow stronger together.
+        This is a **100% anonymous employee survey** designed to help **HURRICANE SYSTEMS** grow stronger together.
 
-        ⏱ It takes **5–7 minutes**, and your input will **directly shape our training, processes, and team support**.
+        ⏱ The survey takes approximately **5–7 minutes**, and your responses will directly support
+        improvements in training, processes, and team support.
 
         ---
-        🗓 **Please complete it by 15 January**
+        **🗓 Please complete the survey by 15 January.**
         """
     )
 
-    st.markdown("🙏 *Thank you for being part of our growth.*")
+    st.markdown(
+        "*Thank you for being part of our continuous growth.*"
+    )
+
     st.markdown("---")
 
-    if st.button("👉 Continue to the survey"):
+    if st.button("➤ Continue to the survey"):
         st.session_state.page = "survey"
         st.rerun()
 
@@ -39,45 +107,47 @@ if st.session_state.page == "intro":
 # =============================
 elif st.session_state.page == "survey":
 
-    st.title("🗣️ Anonymous Employee Feedback")
+    # Back button (TOP)
+    if st.button("← Back"):
+        st.session_state.page = "intro"
+        st.rerun()
+
+    st.title("Anonymous Employee Feedback")
     st.caption(
-        "Your responses are completely anonymous. "
-        "No name, email, IP address, or device information is collected."
+        "All responses are anonymous. No personal or identifying information is collected."
     )
 
     st.markdown("---")
 
     q1 = st.text_area(
-        "1️⃣ What is one thing that has gone well for you or your team recently?",
-        help="Knowing what works helps us protect those processes."
+        "1. What is one thing that has gone well for you or your team recently?"
     )
 
     q2 = st.text_area(
-        "2️⃣ What is the biggest pain point or obstacle that makes your job harder than it needs to be?"
+        "2. What is the biggest pain point or obstacle that currently makes your job harder than it needs to be?"
     )
 
     q3 = st.text_area(
-        "3️⃣ What is one thing leadership could do differently to better support your daily success?"
+        "3. What is one thing leadership could do differently to better support your daily success?"
     )
 
     q4 = st.text_area(
-        "4️⃣ What resources, tools, or knowledge are you currently missing?"
+        "4. What resources, tools, or knowledge do you feel you are currently missing?"
     )
 
     q5 = st.text_area(
-        "5️⃣ If you were CEO for a day, what is the first major change you would make?"
+        "5. If you were CEO for a day, what is the first major change you would make?"
     )
 
     q6 = st.text_area(
-        "➕ Anything else you would like to share?",
-        help="Optional – share anything not covered above."
+        "Additional comments (optional)"
     )
 
     st.markdown("---")
 
-    if st.button("📩 Submit feedback"):
+    if st.button("✉ Submit feedback"):
         if not any([q1, q2, q3, q4, q5, q6]):
-            st.warning("Please answer at least one question before submitting.")
+            st.warning("Please respond to at least one question before submitting.")
         else:
             payload = {
                 "q1": q1,
@@ -94,7 +164,33 @@ elif st.session_state.page == "survey":
             )
 
             if response.status_code == 200:
-                st.success("✅ Thank you. Your anonymous feedback has been submitted.")
-                st.balloons()
+                st.session_state.page = "thank_you"
+                st.rerun()
             else:
-                st.error("❌ Something went wrong. Please try again later.")
+                st.error("An unexpected error occurred. Please try again later.")
+
+# =============================
+# PAGE 3: THANK YOU PAGE
+# =============================
+elif st.session_state.page == "thank_you":
+
+    st.title("Thank You")
+
+    st.markdown(
+        """
+        **Thank you for your feedback.**
+
+        Your response has been submitted successfully and will be reviewed
+        in aggregate to help improve our workplace.
+
+        ---
+        You may now close this page.
+        """
+    )
+
+    st.markdown(
+        "<p style='color:gray; font-size:0.9em;'>"
+        "For anonymity reasons, the survey cannot be submitted more than once per session."
+        "</p>",
+        unsafe_allow_html=True
+    )
