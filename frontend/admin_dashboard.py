@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 from passlib.context import CryptContext
+import base64
 
 # =================================================
 # PAGE CONFIG
@@ -16,8 +17,6 @@ st.set_page_config(page_title="Hurricane Admin Dashboard", layout="wide")
 # =================================================
 env_path = Path(__file__).resolve().parent.parent / "backend" / ".env"
 load_dotenv(dotenv_path=env_path)
-logo_path = Path(__file__).parent / "assets" / "hurricane_logo.webp"
-st.image(logo_path, use_container_width=True)
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -55,20 +54,43 @@ def authenticate(email, password):
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
-# =================================================
+# =============================
 # LOGIN PAGE (BRANDED)
-# =================================================
+# =============================
 if not st.session_state.authenticated:
 
     st.markdown("<br><br>", unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
+    # Centered layout
+    left, center, right = st.columns([1, 1, 1])
+
+    with center:
+        logo_path = Path(__file__).parent / "assets" / "hurricane_logo.webp"
+        
+    with open(logo_path, "rb") as f:
+        data = base64.b64encode(f.read()).decode()
+
+        st.markdown(
+            f"""
+            <div style="text-align:center;">
+                <img src="data:image/webp;base64,{data}" width="180">
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+
+        # Company name
+        st.markdown(
+            "<h3 style='text-align:center; margin-bottom:4px;'>Hurricane Admin Portal</h3>",
+            unsafe_allow_html=True
+        )
+
+        # Tagline (italic)
         st.markdown(
             """
-            <h2 style='text-align:center;'>Hurricane Admin Portal</h2>
-            <p style='text-align:center; color:gray;'>
-            Anonymous employee feedback for continuous improvement
+            <p style='text-align:center; font-style:italic; color:gray; margin-top:0;'>
+            Synergizing Systems, Shielding Futures for a Resilient Tomorrow
             </p>
             """,
             unsafe_allow_html=True
