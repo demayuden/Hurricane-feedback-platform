@@ -15,14 +15,27 @@ def get_db():
 
 @router.post("/feedback")
 def submit_feedback(data: dict, db: Session = Depends(get_db)):
-    sentiment = analyze_sentiment(data["message"])
+    combined_text = " ".join([
+        data.get("q1", ""),
+        data.get("q2", ""),
+        data.get("q3", ""),
+        data.get("q4", ""),
+        data.get("q5", "")
+    ])
+
+    sentiment = analyze_sentiment(combined_text)
 
     feedback = Feedback(
-        category=data["category"],
-        message=data["message"],
+        q1=data.get("q1"),
+        q2=data.get("q2"),
+        q3=data.get("q3"),
+        q4=data.get("q4"),
+        q5=data.get("q5"),
         sentiment=sentiment,
         urgency=data.get("urgency", False)
     )
+
     db.add(feedback)
     db.commit()
+
     return {"status": "submitted"}
