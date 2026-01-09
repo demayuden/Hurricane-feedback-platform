@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import psycopg2
 
-conn = psycopg2.connect("your_db_url")
+conn = psycopg2.connect("postgresql://postgres:hurricane123@localhost:5432/feedback_db")
 df = pd.read_sql("SELECT * FROM feedback", conn)
 
 st.title("Admin Feedback Dashboard")
