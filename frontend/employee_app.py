@@ -88,7 +88,7 @@ if st.session_state.page == "intro":
         improvements in training, processes, and team support.
 
         ---
-        **🗓 Please complete the survey by 15 January.**
+        **🗓 Please complete the survey by 23 January, 2026**
         """
     )
 
